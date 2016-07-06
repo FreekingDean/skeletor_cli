@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'skeletor_cli'
+
+SkeletorCLI::CLI.start(ARGV)
