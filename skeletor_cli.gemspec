@@ -14,12 +14,12 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://www.github.com"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.files         = Dir.glob("{bin,lib}/**/*")
   spec.bindir        = "bin"
   spec.executables   = "skeletor"
   spec.require_paths = ["lib"]
 
-  #spec.add_dependency "skeletor_api"
+  spec.add_dependency "skeletor_api"
   spec.add_dependency "thor"
 
   spec.add_development_dependency "bundler"
