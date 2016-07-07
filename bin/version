@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+current_version = File.read('./lib/skeletor_cli/version.rb').split('"')[1]
+version_upgrade = ARGV[0]
+versioning = current_version.split('.')
+major = versioning[0].to_i
+minor = versioning[1].to_i
+patch = versioning[2].to_i
+beta = versioning[3].to_i || -1
+
+puts `rm skeletor_cli-#{current_version}.gem`
+
+if version_upgrade == 'major'
+  major += 1
+elsif version_upgrade == 'minor'
+  minor += 1
+elsif version_upgrade == 'patch'
+  patch += 1
+else
+  beta += 1
+end
+
+version_number = "#{major}.#{minor}.#{patch}#{beta > -1 ? ".#{beta}" : ''}"
+
+version_file = <<-VERSION_FILE
+module SkeletorCLI
+  VERSION = "#{version_number}"
+end
+VERSION_FILE
+File.open('./lib/skeletor_cli/version.rb', 'w') { |f| f.write(version_file) }
+puts `gem build skeletor_cli.gemspec`
+puts `gem install skeletor_cli-#{version_number}.gem`
