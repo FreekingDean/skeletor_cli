@@ -12,10 +12,16 @@ puts `rm skeletor_cli-#{current_version}.gem`
 
 if version_upgrade == 'major'
   major += 1
+  minor = 0
+  patch = 0
+  beta = -1
 elsif version_upgrade == 'minor'
   minor += 1
+  patch = 0
+  beta = -1
 elsif version_upgrade == 'patch'
   patch += 1
+  beta = -1
 else
   beta += 1
 end
